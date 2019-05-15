@@ -1,0 +1,24 @@
+{
+  "name": "dota2-server-log",
+  "version": "1.0.0",
+  "description": "Dota2 server log parser app",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "dota2",
+    "parser"
+  ],
+  "author": "Evgenii Burdaev",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.8.0",
+    "nock": "^10.0.6",
+    "prettier": "^1.17.1"
+  },
+  "dependencies": {
+    "fs-reverse": "0.0.3",
+    "request-promise": "^4.2.4"
+  }
+}
