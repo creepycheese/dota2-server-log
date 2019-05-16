@@ -51,8 +51,10 @@ var api = require('dota2-server-log').OpendotaApi;
   leaderboard_rank: null }
 ```
 
-### ** FetchPlayerStat(playerId)**
+### FetchPlayerStat(playerId, params)
 `player_id` - id of player to fetch stat
+`params.limit` - limit of games to fetch stat
+
 returns instance of  `PlayerStat`
 
 ```js
