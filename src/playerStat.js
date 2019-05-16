@@ -10,6 +10,7 @@ class PlayerStat {
     this.winrate = _.round(this.win / this.lose, 4) * 100;
     this.nickname = this.player.profile.personaname;
     this.recentMatches = params.recentMatches;
+    this._didLose = p => !this._didWin(p);
   }
 
   topHeroes(count) {
@@ -19,10 +20,27 @@ class PlayerStat {
   }
 
   hasWinstreak(lastGames) {
-    if(this.recentMatches == [] || this.recentMatches == null || lastGames == 0) return false
+    if (
+      this.recentMatches == [] ||
+      this.recentMatches == null ||
+      lastGames == 0
+    )
+      return false;
 
     var recent = this.recentMatches.slice(0, lastGames);
     return _.every(recent, this._didWin);
+  }
+
+  hasLosestreak(lastGames) {
+    if (
+      this.recentMatches == [] ||
+      this.recentMatches == null ||
+      lastGames == 0
+    )
+      return false;
+
+    var recent = this.recentMatches.slice(0, lastGames);
+    return _.every(recent, this._didLose);
   }
 
   _didWin(playerMatch) {

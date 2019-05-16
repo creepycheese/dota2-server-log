@@ -2,6 +2,14 @@ const rp = require('request-promise');
 const util = require('util');
 
 class OpendotaApi {
+  constructor(params) {
+    if (params !== undefined && params.enablelogging !== undefined) {
+      this.enableLogging = params.enablelogging;
+    } else {
+      this.enableLogging = true;
+    }
+  }
+
   async heroes(params) {
     var url = util.format(
       'https://api.opendota.com/api/players/%s/heroes?date=%s&limit=%s&significant=1&having=%s',
@@ -41,9 +49,10 @@ class OpendotaApi {
   }
 
   async _loggedRequest(url) {
-    util.log('Requesting: ' + url);
+    this.enableLogging && util.log('Requesting: ' + url);
+
     return await rp(url, {json: true}).then(m => {
-      util.log('Success request: ' + url);
+      this.enableLogging && util.log('Success request: ' + url);
       return m;
     });
   }
