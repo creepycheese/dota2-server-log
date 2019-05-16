@@ -87,6 +87,19 @@ describe('FetchPlayerStat', () => {
       });
     });
 
+    it('returns result of PlayerStatFunction', async () => {
+     statStub.mockResolvedValue(42);
+      var result = await FetchPlayerStat(playerId, {
+        limit: limit,
+        hasStreakGames: hasStreakGames,
+        forLastDays: forLastDays,
+        api: apiStub,
+        statConstructor: statStub,
+      });
+
+     expect(result).toBe(42);
+    });
+
     it('requests api winLose', async () => {
       await FetchPlayerStat(playerId, {
         limit: limit,
