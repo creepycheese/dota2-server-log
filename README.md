@@ -50,3 +50,14 @@ var api = require('dota2-server-log').OpendotaApi;
   rank_tier: 66,
   leaderboard_rank: null }
 ```
+
+### ** FetchPlayerStat(playerId)**
+`player_id` - id of player to fetch stat
+returns instance of  `PlayerStat`
+
+```js
+var FetchPlayerStat = require('./index.js').FetchPlayerStat;
+(async() => {
+  console.log(await FetchPlayerStat(910673288));
+})();
+```
