@@ -1,6 +1,7 @@
 const util = require('util');
 const OpendotaApi = require('./opendotaApi');
 const PlayerStat = require('./playerStat');
+const GameActivityTag = require('./gameActivityTag');
 
 module.exports = {
   FetchPlayerStat: async function(playerId, params) {
@@ -9,6 +10,8 @@ module.exports = {
     var api = params.api || new OpendotaApi();
     var playerStatFn = params.statConstructor || PlayerStat;
     var limit = params.limit || 20;
+    var forLastDays = params.forLastDays || ''
+    var tags = params.tags || [];
 
     var recentMatches = await api.recentMatches({
       playerId: playerId,
@@ -18,12 +21,18 @@ module.exports = {
     var heroes = await api.heroes({playerId: playerId, limit: limit});
     var player = await api.player(playerId);
 
-    return new playerStatFn({
+    var playerStat = playerStatFn({
       lose: winLose.lose,
       win: winLose.win,
       player: player,
       recentMatches: recentMatches,
       heroes: heroes,
     });
+
+    tags.forEach(function(tag) {
+      if (tag.condition(playerStat)) playerStat.addTags(tag);
+    });
+
+    return playerStat;
   },
 };

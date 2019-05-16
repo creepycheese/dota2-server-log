@@ -44,14 +44,14 @@ describe('OpendotaApi', () => {
   });
 
   describe('win_loss', () => {
-    let requestUrl = '/players/910673288/wl?limit=5';
+    let requestUrl = '/players/910673288/wl?limit=5&date=100';
     let response = {win: 5, lose: 5};
 
     it('fetches wl opendota endpoint', async () => {
       expect.assertions(1);
       stubOpendotaGetRequest(requestUrl, response);
 
-      var data = await opendota.winLose({playerId: 910673288, limit: 5});
+      var data = await opendota.winLose({date: 100, playerId: 910673288, limit: 5});
       expect(data).toStrictEqual(response);
     });
   });

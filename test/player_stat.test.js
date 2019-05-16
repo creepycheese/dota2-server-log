@@ -12,6 +12,25 @@ describe('PlayerStat', () => {
       {radiant_win: true, player_slot: 2}, //win
       {radiant_win: false, player_slot: 2}, //lose
     ],
+    tags: [{name: 'valentin'}],
+  });
+
+  describe('data()', () => {
+    it('returns vanilla JS object representation of all data', () => {
+      expect(stat.data()).toStrictEqual({
+        winrate: 76.36,
+        nickname: 'name',
+        tags: ['valentin'],
+      });
+    });
+  });
+
+  describe('addTags([tags])', () => {
+    it('adds tags', () => {
+      stat.addTags('tag');
+      stat.addTags('tag2');
+      expect(stat.tags).toEqual(expect.arrayContaining(['tag', 'tag2']));
+    });
   });
 
   describe('winrate', () => {

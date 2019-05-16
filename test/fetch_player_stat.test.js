@@ -1,5 +1,7 @@
 const FetchPlayerStat = require('../src/FetchPlayerStat').FetchPlayerStat;
 let OpendotaApi = require('../src/opendotaApi.js');
+const GameActivityTag = require('../src/gameActivityTag');
+
 jest.mock('../src/opendotaApi');
 
 describe('FetchPlayerStat', () => {
@@ -113,6 +115,37 @@ describe('FetchPlayerStat', () => {
       });
 
       expect(result).toBe(42);
+    });
+
+    it('identifies tags', async () => {
+      var testTagMock = jest.fn();
+      var failCond = p => {
+        return false;
+      };
+
+      var successTag = new GameActivityTag('Test', testTagMock);
+      var failTag = new GameActivityTag('Test', failCond);
+      var tags = [successTag, failTag];
+      var addTagsMock = jest.fn();
+      var mockedInstanceOfStat = {addTags: addTagsMock};
+      statStub.mockReturnValue(mockedInstanceOfStat);
+      testTagMock.mockReturnValue(true);
+
+      await FetchPlayerStat(playerId, {
+        limit: limit,
+        hasStreakGames: hasStreakGames,
+        forLastDays: forLastDays,
+        api: apiStub,
+        statConstructor: statStub,
+        tags: tags,
+      });
+
+      expect(testTagMock).toBeCalledWith(mockedInstanceOfStat);
+      expect(statStub).toBeCalledWith(
+        expect.objectContaining({lose: expect.any(Number)}),
+      );
+      expect(addTagsMock).toBeCalledWith(successTag);
+      expect(addTagsMock).toBeCalledTimes(1);
     });
 
     it('requests api winLose', async () => {

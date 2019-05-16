@@ -24,9 +24,10 @@ class OpendotaApi {
 
   async winLose(params) {
     var url = util.format(
-      'https://api.opendota.com/api/players/%s/wl?limit=%s',
+      'https://api.opendota.com/api/players/%s/wl?limit=%s&date=%s',
       params.playerId,
       params.limit,
+      params.date
     );
 
     return await this._loggedRequest(url);

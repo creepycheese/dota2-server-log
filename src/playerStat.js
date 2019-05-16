@@ -11,6 +11,11 @@ class PlayerStat {
     this.nickname = this.player.profile.personaname;
     this.recentMatches = params.recentMatches;
     this._didLose = p => !this._didWin(p);
+    this.tags = params.tags || [];
+  }
+
+  data() {
+    return {winrate: this.winrate, nickname: this.nickname, tags: _.map(this.tags, 'name')};
   }
 
   topHeroes(count) {
@@ -41,6 +46,10 @@ class PlayerStat {
 
     var recent = this.recentMatches.slice(0, lastGames);
     return _.every(recent, this._didLose);
+  }
+
+  addTags(tag) {
+    this.tags.push(tag);
   }
 
   _didWin(playerMatch) {
