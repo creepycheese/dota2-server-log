@@ -1,6 +1,9 @@
 # Dota 2 Server Log Parser
 
 Dota 2 server log parser used to retrieve matchmaking stats for players in match
+inspired by [DotaLass](https://github.com/heartofimpetus/DotaLass)
+
+Parses `server_log.txt` in dota folder and retrieves info about players.
 
 ## Install
 
