@@ -8,7 +8,7 @@ class OpendotaApi {
       params.playerId,
       params.playedForLastDays,
       params.limit,
-      params.minGamesOnHero,
+      params.minGamesOnHero
     );
 
     return await rp(url, {json: true}).then(m => {
@@ -16,13 +16,29 @@ class OpendotaApi {
     });
   }
 
-async winLose(params) {
-var url = util.format('https://api.opendota.com/api/players/' + params.playerId + '/wl?limit=' + params.limit);
+  async winLose(params) {
+    var url = util.format(
+      'https://api.opendota.com/api/players/%s/wl?limit=%s',
+      params.playerId,
+      params.limit
+    );
 
     return await rp(url, {json: true}).then(m => {
       return m;
     });
-}
+  }
+
+  async recentMatches(params) {
+    var url = util.format(
+      'https://api.opendota.com/api/players/%s/recentMatches?limit=%s',
+      params.playerId,
+      params.limit
+    );
+
+    return await rp(url, {json: true}).then(m => {
+      return m;
+    });
+  }
 
   async player(id) {
     var url = util.format('https://api.opendota.com/api/players/' + id);

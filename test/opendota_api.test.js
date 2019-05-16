@@ -32,9 +32,15 @@ describe('OpendotaApi', () => {
   });
 
   describe('recentMathes', () => {
-    let requestUrl = '/players/910673288/recentMathes?limit=5';
+    let requestUrl = '/players/910673288/recentMatches?limit=5';
     let response = require('./response_stubs/recent_matches.js');
-    it('fetches opendota recentMatches', async () => {});
+    it('fetches opendota recentMatches', async () => {
+      expect.assertions(1);
+      stubOpendotaGetRequest(requestUrl, response);
+
+      var data = await opendota.recentMatches({playerId: 910673288, limit: 5});
+      expect(data).toStrictEqual(response);
+    });
   });
 
   describe('win_loss', () => {
