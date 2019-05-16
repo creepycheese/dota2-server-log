@@ -16,6 +16,8 @@ const logParser = new Dota2ServerLog();
 ### Opendota API
 
 ```javascript
+var api = require('dota2-server-log').OpendotaApi;
+
 (async () => {
   console.log(await api.player(910673288))
 })();

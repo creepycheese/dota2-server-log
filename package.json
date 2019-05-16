@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "fs-reverse": "0.0.3",
+    "lodash": "^4.17.11",
     "request-promise": "^4.2.4"
   }
 }
