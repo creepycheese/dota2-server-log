@@ -42,7 +42,7 @@ describe('FetchPlayerStat', () => {
         statConstructor: statStub,
       });
 
-      expect(apiStub.recentMatches).toBeCalledWith(playerId, {limit: limit});
+      expect(apiStub.recentMatches).toBeCalledWith({playerId: playerId, limit: limit});
     });
 
     it('requests api player', async () => {
