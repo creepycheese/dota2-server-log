@@ -29,8 +29,8 @@ module.exports = {
       heroes: heroes,
     });
 
-    tags.forEach(function(tag) {
-      if (tag.condition(playerStat)) playerStat.addTags(tag);
+    tags.forEach(async function(tag) {
+      if (await tag.condition(playerStat)) playerStat.addTags(tag);
     });
 
     return playerStat;
