@@ -1,4 +1,5 @@
 const OpendotaApi = require('./opendotaApi');
+_ = require('lodash');
 
 class GameActivityTag {
   constructor(name, condition) {
@@ -8,6 +9,10 @@ class GameActivityTag {
 
   static predefinedTags() {
     return [
+      new GameActivityTag('HeroOTP', function(p) {
+        return _.some(p.heroes, (h) => h.games / p.recentMatches.length >= 0.8);
+      }),
+
       new GameActivityTag('Smurf', function(p) {
         return p.winrate >= 85;
       }),
