@@ -52,14 +52,31 @@ var api = require('dota2-server-log').OpendotaApi;
 ```
 
 ### FetchPlayerStat(playerId, params)
-`player_id` - id of player to fetch stat
-`params.limit` - limit of games to fetch stat
+Fetches info about player with given `player_id`
 
-returns instance of  `PlayerStat`
+`player_id` - id of player to fetch stat.
+`params.limit` - limit of games to fetch stat. Default: `20`
+
+returns instance of `PlayerStat`
 
 ```js
 var FetchPlayerStat = require('./index.js').FetchPlayerStat;
 (async() => {
-  console.log(await FetchPlayerStat(910673288));
+  console.log(await FetchPlayerStat(910673288).data());
 })();
+
+//logs
+
+{ winrate: 66.67,
+  nickname: 'nickname',
+  tags: [ 'Rusty' ] }
 ```
+
+### PlayerStat
+
+#### data()
+
+returns data about player with given tags.
+Tags to be returned:
+
+`Rusty` - have played less than 3 matchmaking games for the period of more than 2 weeks
