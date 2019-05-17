@@ -15,6 +15,17 @@ describe('GameActivityTag', () => {
   });
 
   describe('tags', () => {
+    describe('HeroOTP', () => {
+      var heroOtp = GameActivityTag.getPredefinedTag('HeroOTP');
+      var targetWinrate = 85;
+
+      it('returns true when player played more than 80 percents of games on 1 hero', function() {
+        var fakeStat = { heroes: {hero_id: 22, games: 4}, recentMatches: [{}, {}, {}, {}, {}]};
+
+        expect(smurf.isSatisfied(fakeStat)).toBe(true);
+      });
+    });
+
     describe('Smurf', () => {
       var smurf = GameActivityTag.getPredefinedTag('Smurf');
       var targetWinrate = 85;
