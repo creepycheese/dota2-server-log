@@ -8,6 +8,10 @@ class GameActivityTag {
 
   static predefinedTags() {
     return [
+      new GameActivityTag('Smurf', function(p) {
+        return p.winrate >= 85;
+      }),
+
       new GameActivityTag('Winstreak', function(p) {
         return p.hasWinstreak(3);
       }),

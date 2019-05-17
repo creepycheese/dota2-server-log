@@ -40,6 +40,7 @@ describe('FetchPlayerStat', () => {
       win: 1,
       lose: 1,
       player: {profile: {account_id: 42}},
+      winrate: 90,
       hasWinstreak: () => {},
       hasLosestreak: () => {},
       addTags: addTagsMock,

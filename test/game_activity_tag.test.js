@@ -15,6 +15,15 @@ describe('GameActivityTag', () => {
   });
 
   describe('tags', () => {
+    describe('Smurf', () => {
+      var smurf = GameActivityTag.getPredefinedTag('Smurf');
+      var targetWinrate = 85;
+
+      it('returns true when player winrate is more than 85', function() {
+        var fakeStat = {winrate: 86};
+        expect(smurf.isSatisfied(fakeStat)).toBe(true);
+      });
+    });
     describe('Winstreak', () => {
       var winstreak = GameActivityTag.getPredefinedTag('Winstreak');
       var winMock = jest.fn();
