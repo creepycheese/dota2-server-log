@@ -128,7 +128,7 @@ describe('FetchPlayerStat', () => {
       var tags = [successTag, failTag];
       var addTagsMock = jest.fn();
       var mockedInstanceOfStat = {addTags: addTagsMock};
-      statStub.mockReturnValue(mockedInstanceOfStat);
+      statStub.mockImplementation(() => mockedInstanceOfStat);
       testTagMock.mockReturnValue(true);
 
       await FetchPlayerStat(playerId, {

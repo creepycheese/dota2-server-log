@@ -10,7 +10,7 @@ module.exports = {
     var api = params.api || new OpendotaApi();
     var playerStatFn = params.statConstructor || PlayerStat;
     var limit = params.limit || 20;
-    var forLastDays = params.forLastDays || ''
+    var date = params.date
     var tags = params.tags || [];
 
     var recentMatches = await api.recentMatches({
@@ -21,7 +21,7 @@ module.exports = {
     var heroes = await api.heroes({playerId: playerId, limit: limit});
     var player = await api.player(playerId);
 
-    var playerStat = playerStatFn({
+    var playerStat = new playerStatFn({
       lose: winLose.lose,
       win: winLose.win,
       player: player,

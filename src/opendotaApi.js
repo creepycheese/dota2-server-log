@@ -1,8 +1,10 @@
 const rp = require('request-promise');
 const util = require('util');
+_ = require('lodash');
 
 class OpendotaApi {
   constructor(params) {
+    this.opendotaPlayersUrl = 'https://api.opendota.com/api/players/';
     if (params !== undefined && params.enablelogging !== undefined) {
       this.enableLogging = params.enablelogging;
     } else {
@@ -11,42 +13,39 @@ class OpendotaApi {
   }
 
   async heroes(params) {
-    var url = util.format(
-      'https://api.opendota.com/api/players/%s/heroes?date=%s&limit=%s&significant=1&having=%s',
-      params.playerId,
-      params.playedForLastDays,
-      params.limit,
-      params.minGamesOnHero,
+    return await this._loggedRequest(
+      this._constructPlayersRequestUrl(params.playerId, '/heroes', _.assign(params, {significant: 1})),
     );
-
-    return await this._loggedRequest(url);
   }
 
   async winLose(params) {
-    var url = util.format(
-      'https://api.opendota.com/api/players/%s/wl?limit=%s&date=%s',
-      params.playerId,
-      params.limit,
-      params.date
+    return await this._loggedRequest(
+      this._constructPlayersRequestUrl(params.playerId, '/wl', params),
     );
-
-    return await this._loggedRequest(url);
   }
 
   async recentMatches(params) {
-    var url = util.format(
-      'https://api.opendota.com/api/players/%s/recentMatches?limit=%s',
-      params.playerId,
-      params.limit,
+    return await this._loggedRequest(
+      this._constructPlayersRequestUrl(
+        params.playerId,
+        '/recentMatches',
+        params,
+      ),
     );
-
-    return await this._loggedRequest(url);
   }
 
   async player(id) {
     var url = util.format('https://api.opendota.com/api/players/' + id);
 
     return await this._loggedRequest(url);
+  }
+
+  _constructPlayersRequestUrl(playerId, path, params) {
+    var url = new URL(playerId + path, this.opendotaPlayersUrl);
+    params = _.omitBy(_.omit(params, ['playerId']), _.isUndefined);
+    _.each(params, (k, v) => url.searchParams.append(v, k));
+
+    return url.href;
   }
 
   async _loggedRequest(url) {

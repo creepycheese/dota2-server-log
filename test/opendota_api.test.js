@@ -13,7 +13,7 @@ describe('OpendotaApi', () => {
 
   describe('heroes', () => {
     let requestUrl =
-      '/players/910673288/heroes?date=100&limit=20&significant=1&having=2';
+      '/players/910673288/heroes?date=100&limit=20&having=2&significant=1';
     let response = require('./response_stubs/heroes_stat.js');
 
     it('requests heroes stat from opendota with given params', async () => {
@@ -22,9 +22,9 @@ describe('OpendotaApi', () => {
 
       var data = await opendota.heroes({
         playerId: 910673288,
-        playedForLastDays: 100,
+        date: 100,
         limit: 20,
-        minGamesOnHero: 2,
+        having: 2,
       });
 
       expect(data).toStrictEqual(response);
@@ -51,8 +51,25 @@ describe('OpendotaApi', () => {
       expect.assertions(1);
       stubOpendotaGetRequest(requestUrl, response);
 
-      var data = await opendota.winLose({date: 100, playerId: 910673288, limit: 5});
+      var data = await opendota.winLose({
+        limit: 5,
+        date: 100,
+        playerId: 910673288,
+      });
       expect(data).toStrictEqual(response);
+    });
+
+    describe('when some parameters(dage) are omitted', () => {
+      let requestUrl = '/players/910673288/wl?limit=5';
+      let response = {win: 5, lose: 5};
+
+      it('fetches wl opendota endpoint', async () => {
+        expect.assertions(1);
+        stubOpendotaGetRequest(requestUrl, response);
+
+        var data = await opendota.winLose({playerId: 910673288, limit: 5});
+        expect(data).toStrictEqual(response);
+      });
     });
   });
 
