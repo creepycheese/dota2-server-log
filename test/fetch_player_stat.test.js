@@ -35,12 +35,15 @@ describe('FetchPlayerStat', () => {
     };
 
     var statStub = jest.fn();
+    var addTagsMock = jest.fn();
+    var mockedInstanceOfStat = {addTags: addTagsMock};
 
     afterEach(() => {
       jest.resetAllMocks();
     });
 
     beforeEach(() => {
+      statStub.mockImplementation(() => mockedInstanceOfStat);
       apiStub.heroes.mockResolvedValue(heroesResponse);
       apiStub.recentMatches.mockResolvedValue(recentMatchesResponse);
       apiStub.player.mockResolvedValue(playerResponse);
@@ -105,7 +108,7 @@ describe('FetchPlayerStat', () => {
     });
 
     it('returns result of PlayerStatFunction', async () => {
-      statStub.mockResolvedValue(42);
+      statStub.mockReturnValue(mockedInstanceOfStat);
       var result = await FetchPlayerStat(playerId, {
         limit: limit,
         hasStreakGames: hasStreakGames,
@@ -114,7 +117,7 @@ describe('FetchPlayerStat', () => {
         statConstructor: statStub,
       });
 
-      expect(result).toBe(42);
+      expect(result).toBe(mockedInstanceOfStat);
     });
 
     it('identifies tags', async () => {
@@ -126,9 +129,6 @@ describe('FetchPlayerStat', () => {
       var successTag = new GameActivityTag('Test', testTagMock);
       var failTag = new GameActivityTag('Test', failCond);
       var tags = [successTag, failTag];
-      var addTagsMock = jest.fn();
-      var mockedInstanceOfStat = {addTags: addTagsMock};
-      statStub.mockImplementation(() => mockedInstanceOfStat);
       testTagMock.mockReturnValue(true);
 
       await FetchPlayerStat(playerId, {

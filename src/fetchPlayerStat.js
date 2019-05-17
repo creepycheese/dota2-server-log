@@ -11,7 +11,7 @@ module.exports = {
     var playerStatFn = params.statConstructor || PlayerStat;
     var limit = params.limit || 20;
     var date = params.date
-    var tags = params.tags || [];
+    var tags = params.tags || GameActivityTag.predefinedTags();
 
     var recentMatches = await api.recentMatches({
       playerId: playerId,
