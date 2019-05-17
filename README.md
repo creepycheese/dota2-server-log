@@ -67,7 +67,32 @@ var FetchPlayerStat = require('./index.js').FetchPlayerStat;
 
 //logs
 
-{ winrate: 66.67,
+{ topHeroes:topHeroes:
+   [ { hero_id: '27',
+       last_played: 1555558497,
+       games: 3,
+       win: 1,
+       with_games: 0,
+       with_win: 0,
+       against_games: 3,
+       against_win: 3 },
+     { hero_id: '62',
+       last_played: 1555700438,
+       games: 3,
+       win: 1,
+       with_games: 2,
+       with_win: 0,
+       against_games: 1,
+       against_win: 1 },
+     { hero_id: '94',
+       last_played: 1555601220,
+       games: 3,
+       win: 1,
+       with_games: 0,
+       with_win: 0,
+       against_games: 0,
+       against_win: 0 } ],
+   winrate: 66.67,
   nickname: 'nickname',
   tags: [ 'Rusty' ] }
 ```
