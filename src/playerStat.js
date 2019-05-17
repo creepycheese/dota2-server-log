@@ -15,7 +15,7 @@ class PlayerStat {
   }
 
   data() {
-    return {winrate: this.winrate, nickname: this.nickname, tags: _.map(this.tags, 'name')};
+    return {topHeroes: this.topHeroes(3), winrate: this.winrate, nickname: this.nickname, tags: _.map(this.tags, 'name')};
   }
 
   topHeroes(count) {

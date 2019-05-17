@@ -18,6 +18,7 @@ describe('PlayerStat', () => {
   describe('data()', () => {
     it('returns vanilla JS object representation of all data', () => {
       expect(stat.data()).toStrictEqual({
+       topHeroes: [{hero_id: 1}, {hero_id: 2}, {hero_id: 3}],
         winrate: 76.36,
         nickname: 'name',
         tags: ['valentin'],

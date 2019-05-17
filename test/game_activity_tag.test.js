@@ -24,6 +24,7 @@ describe('GameActivityTag', () => {
         expect(smurf.isSatisfied(fakeStat)).toBe(true);
       });
     });
+
     describe('Winstreak', () => {
       var winstreak = GameActivityTag.getPredefinedTag('Winstreak');
       var winMock = jest.fn();
