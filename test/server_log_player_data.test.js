@@ -22,11 +22,13 @@ describe('ServerLogPlayerData(logPath)', () => {
   });
 
   var ids = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-  var fetcherMock = jest.fn();
+  var fetcherMock = jest.fn().mockResolvedValue(42);
 
   it('fetches player data for all players in log', async () => {
     lastMatchSteamIdsMock.mockResolvedValueOnce(ids);
     var result = await ServerLogPlayerData('file', fetcherMock);
     expect(fetcherMock).toBeCalledTimes(ids.length);
+    expect(await result[0]).toBe(42);
+    expect(await Promise.all(result).then(r => r)).toStrictEqual(_.fill(Array(10), 42));
   });
 });
