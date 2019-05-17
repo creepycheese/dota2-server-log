@@ -8,6 +8,14 @@ class GameActivityTag {
 
   static predefinedTags() {
     return [
+      new GameActivityTag('Winstreak', function(p) {
+        return p.hasWinstreak(3);
+      }),
+
+      new GameActivityTag('Losestreak', function(p) {
+        return p.hasLosestreak(3);
+      }),
+
       new GameActivityTag('Rusty', async function(p) {
         var api = new OpendotaApi();
         var winLose = await api.winLose({

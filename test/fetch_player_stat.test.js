@@ -36,13 +36,25 @@ describe('FetchPlayerStat', () => {
 
     var statStub = jest.fn();
     var addTagsMock = jest.fn();
-    var mockedInstanceOfStat = {addTags: addTagsMock};
+    var mockedInstanceOfStat = {
+      win: 1,
+      lose: 1,
+      player: {profile: {account_id: 42}},
+      hasWinstreak: () => {},
+      hasLosestreak: () => {},
+      addTags: addTagsMock,
+    };
 
     afterEach(() => {
       jest.resetAllMocks();
     });
 
     beforeEach(() => {
+      OpendotaApi.mockImplementation(() => {
+        return {
+          winLose: jest.fn().mockResolvedValue({win: 2, lose: 2}),
+        };
+      });
       statStub.mockImplementation(() => mockedInstanceOfStat);
       apiStub.heroes.mockResolvedValue(heroesResponse);
       apiStub.recentMatches.mockResolvedValue(recentMatchesResponse);

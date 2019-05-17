@@ -15,6 +15,25 @@ describe('GameActivityTag', () => {
   });
 
   describe('tags', () => {
+    describe('Winstreak', () => {
+      var winstreak = GameActivityTag.getPredefinedTag('Winstreak');
+      var winMock = jest.fn();
+      var fakeStat = {hasWinstreak: winMock};
+      var streak = 3;
+
+      it('returns true when player stat has winStreak for at least 3 games', function() {
+        winMock.mockReturnValue(true);
+        expect(winstreak.isSatisfied(fakeStat)).toBe(true);
+        expect(winMock).toBeCalledWith(streak);
+      });
+
+      it('returns false when player stat has winStreak for at least 3 games', function() {
+        winMock.mockReturnValue(false);
+        expect(winstreak.isSatisfied(fakeStat)).toBe(false);
+        expect(winMock).toBeCalledWith(streak);
+      });
+    });
+
     describe('Rusty', () => {
       var rusty = GameActivityTag.getPredefinedTag('Rusty');
       var fakeStat = {player: {profile: {account_id: 33}}};
