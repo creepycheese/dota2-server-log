@@ -12,10 +12,18 @@ class PlayerStat {
     this.recentMatches = params.recentMatches;
     this._didLose = p => !this._didWin(p);
     this.tags = params.tags || [];
+    this.account_id = this.player.profile.account_id;
   }
 
   data() {
-    return {topHeroes: this.topHeroes(3), winrate: this.winrate, nickname: this.nickname, tags: _.map(this.tags, 'name')};
+    return {
+      playerId: this.account_id,
+      topHeroes: this.topHeroes(3),
+      winrate: this.winrate,
+      nickname: this.nickname,
+      tags: _.map(this.tags, 'name'),
+      opendotaUrl: 'https://www.opendota.com/players/' + this.account_id,
+    };
   }
 
   topHeroes(count) {

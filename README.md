@@ -139,7 +139,7 @@ Outputs:
 ```
 
 
-// Logs:
+Logs:
 ```js
 [ { topHeroes: [ [Object], [Object], [Object] ],
     winrate: 33.33,

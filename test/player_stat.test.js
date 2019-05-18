@@ -4,7 +4,7 @@ describe('PlayerStat', () => {
   let stat = new PlayerStat({
     win: 42,
     lose: 55,
-    player: {profile: {personaname: 'name'}},
+    player: {profile: {account_id: 42, personaname: 'name'}},
     heroes: [{hero_id: 1}, {hero_id: 2}, {hero_id: 3}, {hero_id: 4}],
     recentMatches: [
       {radiant_win: false, player_slot: 130}, //win
@@ -18,10 +18,12 @@ describe('PlayerStat', () => {
   describe('data()', () => {
     it('returns vanilla JS object representation of all data', () => {
       expect(stat.data()).toStrictEqual({
+playerId: 42,
         topHeroes: [{hero_id: 1}, {hero_id: 2}, {hero_id: 3}],
         winrate: 76.36,
         nickname: 'name',
         tags: ['valentin'],
+opendotaUrl: 'https://www.opendota.com/players/42'
       });
     });
   });
