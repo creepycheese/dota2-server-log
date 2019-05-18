@@ -97,6 +97,93 @@ var FetchPlayerStat = require('./index.js').FetchPlayerStat;
   tags: [ 'Rusty' ] }
 ```
 
+### ServerLogPlayerData(logPath)
+Fetches data for all playerId entries in latest server log file which is located in `logPath`
+
+```js
+var ServerLogPlayerData = require('./index.js').ServerLogPlayerData;
+var stat;
+var stats;
+var allStat;
+var successPlayers;
+var failedPlayers;
+var logPath = './test/server_log.txt'
+
+(async() => {
+  allStat = await ServerLogPlayerData(logPath);
+  stats = await Promise.all(allStat).then(r => r).catch(e => e);
+  // Filter players in case some requests failed to retry later
+  successPlayers = _.filter(stats, (s) => !_.hasIn(s, 'error'))
+  failedPlayers = _.difference(stats, successPlayers)
+
+  console.log(_.map(successPlayers, s => s.data()));
+})();
+```
+
+Outputs: 
+```
+18 May 12:16:30 - Fetching data for playerIds: [174830156,445444750,27372708,126702952,349919626,412448050,416755244,302693500,910673288,166168942,166168942]
+18 May 12:16:30 - Fetching statistics for playerId: 174830156
+18 May 12:16:30 - Fetching stat for: 174830156
+18 May 12:16:30 - Requesting: https://api.opendota.com/api/players/174830156/recentMatches?limit=20
+18 May 12:16:30 - Fetching statistics for playerId: 445444750
+18 May 12:16:30 - Fetching stat for: 445444750
+18 May 12:16:30 - Requesting: https://api.opendota.com/api/players/445444750/recentMatches?limit=20
+18 May 12:16:30 - Fetching statistics for playerId: 27372708
+18 May 12:16:30 - Fetching stat for: 27372708
+18 May 12:16:30 - Requesting: https://api.opendota.com/api/players/27372708/recentMatches?limit=20
+...
+18 May 12:16:32 - Success request: https://api.opendota.com/api/players/166168942/wl?date=14
+18 May 12:16:32 - Success request: https://api.opendota.com/api/players/174830156/wl?date=14
+18 May 12:16:32 - Success request: https://api.opendota.com/api/players/302693500/wl?date=14
+```
+
+
+// Logs:
+```js
+[ { topHeroes: [ [Object], [Object], [Object] ],
+    winrate: 33.33,
+    nickname: 'its over 9000 !',
+    tags: [ 'Rusty' ] },
+  { topHeroes: [ [Object], [Object], [Object] ],
+    winrate: 100,
+    nickname: 'Saw',
+    tags: [ 'Smurf', 'Losestreak', 'Rusty' ] },
+  { topHeroes: [ [Object], [Object], [Object] ],
+    winrate: 66.67,
+    nickname: 'whatsgoinon',
+    tags: [] },
+  { topHeroes: [ [Object], [Object], [Object] ],
+    winrate: 53.849999999999994,
+    nickname: 'DARIDO',
+    tags: [] },
+  { topHeroes: [ [Object], [Object], [Object] ],
+    winrate: 100,
+    nickname: '12 Madness',
+    tags: [ 'Smurf', 'Losestreak', 'Rusty' ] },
+  { topHeroes: [ [Object], [Object], [Object] ],
+    winrate: 100,
+    nickname: "↓you'r rank down",
+    tags: [ 'Smurf', 'Rusty' ] },
+  { topHeroes: [ [Object], [Object], [Object] ],
+    winrate: 185.71,
+    nickname: 'Alice (not coming back soon)',
+    tags: [ 'HeroOTP', 'Smurf', 'Losestreak', 'Rusty' ] },
+  { topHeroes: [ [Object], [Object], [Object] ],
+    winrate: 66.67,
+    nickname: 'я сдыхал , меня лутали',
+    tags: [] },
+  { topHeroes: [ [Object], [Object], [Object] ],
+    winrate: 53.849999999999994,
+    nickname: '.',
+    tags: [ 'Losestreak', 'Rusty' ] },
+  { topHeroes: [ [Object], [Object], [Object] ],
+    winrate: 53.849999999999994,
+    nickname: '.',
+    tags: [ 'Losestreak', 'Rusty' ] } ]
+
+```
+
 ### PlayerStat
 
 #### data()
