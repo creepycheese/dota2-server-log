@@ -8,17 +8,28 @@ class GameActivityTag {
     this.condition = condition;
   }
 
+  static getTopHeroTagById(id) {
+    var foundTag = _.find(this.heroesTags(), tag => tag.hero.id == id);
+    return foundTag ? foundTag.tag : null;
+  }
+
+  static heroesTags() {
+    return _.map(heroes, function(hero) {
+      return {
+        hero: hero,
+        tag: new GameActivityTag('Zeus OTP', function(p) {
+          var otpHero = _.find(
+            p.heroes,
+            h => h.games / p.recentMatches.length >= 0.8,
+          );
+
+          return otpHero ? true : false;
+        }),
+      };
+    });
+  }
   static predefinedTags() {
     return [
-      new GameActivityTag('Zeus OTP', function(p) {
-        var otpHero = _.find(
-          p.heroes,
-          h => h.games / p.recentMatches.length >= 0.8,
-        );
-
-        return otpHero ? true : false;
-      }),
-
       new GameActivityTag('Smurf', function(p) {
         return p.winrate >= 85;
       }),
