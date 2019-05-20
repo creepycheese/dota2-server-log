@@ -21,7 +21,7 @@ describe('PlayerStat', () => {
         otpHero: null,
         playerId: 42,
         topHeroes: [{hero_id: 1}, {hero_id: 2}, {hero_id: 3}],
-        winrate: 76.36,
+        winrate: 43.3,
         nickname: 'name',
         tags: ['valentin'],
         opendotaUrl: 'https://www.opendota.com/players/42',
@@ -60,7 +60,7 @@ describe('PlayerStat', () => {
 
   describe('winrate', () => {
     it('calculates winrate', () => {
-      expect(stat.winrate).toStrictEqual(76.36);
+      expect(stat.winrate).toStrictEqual(43.3);
     });
   });
 

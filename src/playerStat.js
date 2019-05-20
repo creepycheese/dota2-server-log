@@ -8,7 +8,7 @@ class PlayerStat {
     this.lose = params.lose;
     this.heroes = params.heroes;
 
-    this.winrate = _.round(this.win / this.lose, 4) * 100;
+    this.winrate = _.round(this.win / (this.lose + this.win), 4) * 100;
     this.nickname = this.player.profile.personaname;
     this.recentMatches = params.recentMatches;
     this._didLose = p => !this._didWin(p);
