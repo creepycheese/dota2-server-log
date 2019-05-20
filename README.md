@@ -101,7 +101,7 @@ var FetchPlayerStat = require('./index.js').FetchPlayerStat;
 Fetches data for all playerId entries in latest server log file which is located in `logPath`
 
 ```js
-var ServerLogPlayerData = require('./index.js').ServerLogPlayerData;
+var ServerLogPlayerData = require('dota2-server-log').ServerLogPlayerData;
 var stat;
 var stats;
 var allStat;
@@ -120,6 +120,7 @@ var logPath = './test/server_log.txt'
 
   console.log("FAILED: ");
   console.log(failedPlayers);
+})
 ```
 
 Outputs: 
