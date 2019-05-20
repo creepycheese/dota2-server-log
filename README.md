@@ -117,7 +117,9 @@ var logPath = './test/server_log.txt'
   failedPlayers = _.difference(stats, successPlayers)
 
   console.log(_.map(successPlayers, s => s.data()));
-})();
+
+  console.log("FAILED: ");
+  console.log(failedPlayers);
 ```
 
 Outputs: 
