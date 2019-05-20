@@ -18,13 +18,35 @@ describe('PlayerStat', () => {
   describe('data()', () => {
     it('returns vanilla JS object representation of all data', () => {
       expect(stat.data()).toStrictEqual({
-playerId: 42,
+        otpHero: null,
+        playerId: 42,
         topHeroes: [{hero_id: 1}, {hero_id: 2}, {hero_id: 3}],
         winrate: 76.36,
         nickname: 'name',
         tags: ['valentin'],
-opendotaUrl: 'https://www.opendota.com/players/42'
+        opendotaUrl: 'https://www.opendota.com/players/42',
       });
+    });
+  });
+
+  describe('otpHero()', () => {
+    let stat = new PlayerStat({
+      win: 42,
+      lose: 55,
+      player: {profile: {account_id: 42, personaname: 'name'}},
+      heroes: [{hero_id: 22, games: 4}],
+      recentMatches: [
+        {radiant_win: false, player_slot: 130}, //win
+        {radiant_win: true, player_slot: 0}, //win
+        {radiant_win: true, player_slot: 2}, //win
+        {radiant_win: false, player_slot: 2}, //lose
+        {radiant_win: false, player_slot: 2}, //lose
+      ],
+      tags: [{name: 'valentin'}],
+    });
+
+    it('returns OTP hero, e.g. hero played more than 80% of time', () => {
+      expect(stat.otpHero()).toEqual({heroStat: {hero_id: 22, games: 4}, hero: expect.objectContaining({id: 22})});
     });
   });
 
