@@ -33,6 +33,7 @@ module.exports = {
       tags.forEach(async function(tag) {
         if (await tag.condition(playerStat)) playerStat.addTags(tag);
       });
+        if(playerStat.otpHero()) playerStat.addTags(new GameActivityTag(playerStat.otpHero().hero.localized_name + ' OTP'))
 
       return playerStat;
     } catch (e) {

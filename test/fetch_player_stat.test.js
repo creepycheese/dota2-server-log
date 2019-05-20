@@ -38,6 +38,7 @@ describe('FetchPlayerStat', () => {
     var addTagsMock = jest.fn();
     var mockedInstanceOfStat = {
       win: 1,
+      otpHero: () => null,
       lose: 1,
       player: {profile: {account_id: 42}},
       winrate: 90,

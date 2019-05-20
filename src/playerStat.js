@@ -1,5 +1,5 @@
 _ = require('lodash');
-var heroHelper= require('./helpers/hero');
+var heroHelper = require('./helpers/hero');
 
 class PlayerStat {
   constructor(params) {
@@ -22,7 +22,7 @@ class PlayerStat {
       topHeroes: this.topHeroes(3),
       winrate: this.winrate,
       nickname: this.nickname,
-otpHero: this.otpHero(),
+      otpHero: this.otpHero(),
       tags: _.map(this.tags, 'name'),
       opendotaUrl: 'https://www.opendota.com/players/' + this.account_id,
     };
@@ -35,8 +35,13 @@ otpHero: this.otpHero(),
     );
 
     // return otpHero ? true : false;
-    var isOtp = (this.heroes[0].games / this.recentMatches.length) >= 0.8;
-    return isOtp ? {heroStat: this.heroes[0], hero: heroHelper.heroById(this.heroes[0].hero_id)} : null;
+    var isOtp = this.heroes[0].games / this.recentMatches.length >= 0.8;
+    return isOtp
+      ? {
+          heroStat: this.heroes[0],
+          hero: heroHelper.heroById(this.heroes[0].hero_id),
+        }
+      : null;
   }
 
   topHeroes(count) {
