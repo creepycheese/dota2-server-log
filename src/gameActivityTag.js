@@ -1,4 +1,5 @@
 const OpendotaApi = require('./opendotaApi');
+const heroes = require('./helpers/heroes');
 _ = require('lodash');
 
 class GameActivityTag {
@@ -9,8 +10,13 @@ class GameActivityTag {
 
   static predefinedTags() {
     return [
-      new GameActivityTag('HeroOTP', function(p) {
-        return _.some(p.heroes, (h) => h.games / p.recentMatches.length >= 0.8);
+      new GameActivityTag('Zeus OTP', function(p) {
+        var otpHero = _.find(
+          p.heroes,
+          h => h.games / p.recentMatches.length >= 0.8,
+        );
+
+        return otpHero ? true : false;
       }),
 
       new GameActivityTag('Smurf', function(p) {

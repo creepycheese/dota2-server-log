@@ -16,7 +16,7 @@ describe('GameActivityTag', () => {
 
   describe('tags', () => {
     describe('HeroOTP', () => {
-      var heroOtp = GameActivityTag.getPredefinedTag('HeroOTP');
+      var heroOtp = GameActivityTag.getPredefinedTag('Zeus OTP');
 
       it('returns true when player played more than 80 percents of games on 1 hero', function() {
         var fakeStat = { heroes: [{hero_id: 22, games: 4}], recentMatches: [{}, {}, {}, {}, {}] };
