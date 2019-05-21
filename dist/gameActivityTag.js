@@ -14,7 +14,7 @@ var OpendotaApi = require('./opendotaApi');
 
 var heroes = require('./helpers/heroes');
 
-_ = require('lodash');
+var _ = require('lodash');
 
 var GameActivityTag =
 /*#__PURE__*/

@@ -1,6 +1,6 @@
 "use strict";
 
-_ = require('lodash');
+var _ = require('lodash');
 
 var allHeroes = require('./heroes.json');
 

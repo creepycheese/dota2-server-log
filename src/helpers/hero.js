@@ -1,4 +1,4 @@
-_ = require('lodash');
+const _ = require('lodash');
 var allHeroes = require('./heroes.json');
 
 module.exports = {

@@ -1,6 +1,6 @@
 const OpendotaApi = require('./opendotaApi');
 const heroes = require('./helpers/heroes');
-_ = require('lodash');
+const _ = require('lodash');
 
 class GameActivityTag {
   constructor(name, condition) {

@@ -1,4 +1,4 @@
-_ = require('lodash');
+const _ = require('lodash');
 var heroHelper = require('./helpers/hero');
 
 class PlayerStat {
