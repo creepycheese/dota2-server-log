@@ -67,7 +67,6 @@ class PlayerStat {
 
     return _.map(top, hero => {
       _.set(hero, 'hero_id', parseInt(hero.hero_id));
-      console.log(hero.games);
       return _.set(hero, 'win_rate', _.round(hero.win / hero.games, 2) * 100);
     });
   }
