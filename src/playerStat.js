@@ -16,8 +16,25 @@ class PlayerStat {
     this.account_id = this.player.profile.account_id;
   }
 
+  KDA() {
+    if (this.kda) return this.kda;
+    this.kda = {
+      kills: _.round(
+        _.sumBy(this.recentMatches, 'kills') / this.recentMatches.length,
+      ),
+      deaths: _.round(
+        _.sumBy(this.recentMatches, 'deaths') / this.recentMatches.length,
+      ),
+      assists: _.round(
+        _.sumBy(this.recentMatches, 'assists') / this.recentMatches.length,
+      ),
+    };
+    return this.kda;
+  }
+
   data() {
     return {
+      kda: [this.KDA().kills, this.KDA().deaths, this.KDA().assists],
       playerId: this.account_id,
       topHeroes: this.topHeroes(3),
       winrate: this.winrate,

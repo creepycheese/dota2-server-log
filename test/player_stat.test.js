@@ -7,10 +7,10 @@ describe('PlayerStat', () => {
     player: {profile: {account_id: 42, personaname: 'name'}},
     heroes: [{hero_id: 1}, {hero_id: 2}, {hero_id: 3}, {hero_id: 4}],
     recentMatches: [
-      {radiant_win: false, player_slot: 130}, //win
-      {radiant_win: true, player_slot: 0}, //win
-      {radiant_win: true, player_slot: 2}, //win
-      {radiant_win: false, player_slot: 2}, //lose
+      {kills: 2, deaths: 3, assists: 4, radiant_win: false, player_slot: 130}, //win
+      {kills: 2, deaths: 3, assists: 4, radiant_win: true, player_slot: 0}, //win
+      {kills: 2, deaths: 2, assists: 4, radiant_win: true, player_slot: 2}, //win
+      {kills: 2, deaths: 3, assists: 4, radiant_win: false, player_slot: 2}, //lose
     ],
     tags: [{name: 'valentin'}],
   });
@@ -19,6 +19,7 @@ describe('PlayerStat', () => {
     it('returns vanilla JS object representation of all data', () => {
       expect(stat.data()).toStrictEqual({
         otpHero: null,
+        kda: [2,3,4],
         playerId: 42,
         topHeroes: [{hero_id: 1}, {hero_id: 2}, {hero_id: 3}],
         winrate: 43.3,
@@ -46,7 +47,10 @@ describe('PlayerStat', () => {
     });
 
     it('returns OTP hero, e.g. hero played more than 80% of time', () => {
-      expect(stat.otpHero()).toEqual({heroStat: {hero_id: 22, games: 4}, hero: expect.objectContaining({id: 22})});
+      expect(stat.otpHero()).toEqual({
+        heroStat: {hero_id: 22, games: 4},
+        hero: expect.objectContaining({id: 22}),
+      });
     });
   });
 
@@ -62,6 +66,10 @@ describe('PlayerStat', () => {
     it('calculates winrate', () => {
       expect(stat.winrate).toStrictEqual(43.3);
     });
+  });
+
+  describe('KDA', () => {
+    expect(stat.KDA()).toEqual({kills: 2, deaths: 3, assists: 4});
   });
 
   describe('topHeroes', () => {
