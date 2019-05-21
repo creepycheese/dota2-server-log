@@ -5,7 +5,7 @@ describe('PlayerStat', () => {
     win: 42,
     lose: 55,
     player: {profile: {account_id: 42, personaname: 'name'}},
-    heroes: [{hero_id: 1}, {hero_id: 2}, {hero_id: 3}, {hero_id: 4}],
+heroes: [{hero_id: 1, games: 3, win: 2}, {hero_id: 2, games: 4, win: 2}, {hero_id: 3, games: 10, win: 4}, {hero_id: 4, games: 5, win: 5 }],
     recentMatches: [
       {kills: 2, deaths: 3, assists: 4, radiant_win: false, player_slot: 130}, //win
       {kills: 2, deaths: 3, assists: 4, radiant_win: true, player_slot: 0}, //win
@@ -17,11 +17,12 @@ describe('PlayerStat', () => {
 
   describe('data()', () => {
     it('returns vanilla JS object representation of all data', () => {
-      expect(stat.data()).toStrictEqual({
+      console.log(stat.data().topHeroes[1])
+      expect(stat.data()).toEqual({
         otpHero: null,
         kda: [2,3,4],
         playerId: 42,
-        topHeroes: [{hero_id: 1}, {hero_id: 2}, {hero_id: 3}],
+        topHeroes: expect.arrayContaining([expect.objectContaining({hero_id: 1, win_rate: 67}), expect.objectContaining({hero_id: 2, win_rate: 50}), expect.objectContaining({hero_id: 3, win_rate: 40})]),
         winrate: 43.3,
         nickname: 'name',
         tags: ['valentin'],
@@ -74,7 +75,7 @@ describe('PlayerStat', () => {
 
   describe('topHeroes', () => {
     it('returns top heroes', function() {
-      expect(stat.topHeroes(2)).toStrictEqual([{hero_id: 1}, {hero_id: 2}]);
+      expect(stat.topHeroes(2)).toStrictEqual([expect.objectContaining({hero_id: 1}), expect.objectContaining({hero_id: 2})]);
     });
   });
 

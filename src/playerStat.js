@@ -63,8 +63,13 @@ class PlayerStat {
 
   topHeroes(count) {
     var count = count ? count : 3;
+    var top = this.heroes.slice(0, count);
 
-    return this.heroes.slice(0, count);
+    return _.map(top, hero => {
+      _.set(hero, 'hero_id', parseInt(hero.hero_id));
+      console.log(hero.games);
+      return _.set(hero, 'win_rate', _.round(hero.win / hero.games, 2) * 100);
+    });
   }
 
   hasWinstreak(lastGames) {
