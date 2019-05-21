@@ -1,13 +1,10 @@
-"use strict";
+var OpendotaApi = require('./src/opendotaApi');
 
-require("@babel/polyfill")
-var OpendotaApi = require('./dist/opendotaApi');
+var Dota2ServerLog = require('./src/dota2ServerLog');
 
-var Dota2ServerLog = require('./dist/dota2ServerLog');
+var FetchPlayerStat = require('./src/fetchPlayerStat').FetchPlayerStat;
 
-var FetchPlayerStat = require('./dist/fetchPlayerStat').FetchPlayerStat;
-
-var ServerLogPlayerData = require('./dist/serverLogPlayerData.js');
+var ServerLogPlayerData = require('./src/serverLogPlayerData.js');
 
 module.exports = {
   OpendotaApi: OpendotaApi,

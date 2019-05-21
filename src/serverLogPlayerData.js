@@ -1,6 +1,7 @@
 const Dota2ServerLog = require('./dota2ServerLog');
 const FetchPlayerStat = require('./fetchPlayerStat').FetchPlayerStat;
 var util = require('util');
+const _ = require('lodash');
 
 module.exports = async function(logPath, fetcher = FetchPlayerStat) {
   var logParser = new Dota2ServerLog();

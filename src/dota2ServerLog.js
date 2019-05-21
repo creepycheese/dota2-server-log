@@ -19,20 +19,26 @@ class Dota2ServerLog {
   async lastMatchSteamIds(filePath) {
     const fileStream = fs(filePath);
 
-    const rlInterface = readline.createInterface({
+    const rl = readline.createInterface({
       input: fileStream,
       crlfDelay: Infinity,
     });
 
-    for await (const line of rlInterface) {
-      var entry = this.parseLogEntry(line);
-      if (entry && this._isValidGameMode(line)) return entry;
-    }
+    return await this._wrapReadlineEvent(rl);
   }
 
   _isValidGameMode(line) {
     var gameModeString = 'DOTA_GAMEMODE';
     return line.indexOf(gameModeString) > -1;
+  }
+
+  _wrapReadlineEvent(rl) {
+    return new Promise((resolve, reject) => {
+      rl.on('line', line => {
+        var entry = this.parseLogEntry(line);
+        if (entry && this._isValidGameMode(line)) return resolve(entry);
+      });
+    });
   }
 }
 
