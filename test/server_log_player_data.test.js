@@ -1,5 +1,6 @@
 const ServerLogPlayerData = require('../src/serverLogPlayerData.js');
 const Dota2ServerLog = require('../src/dota2ServerLog.js');
+const _ = require('lodash');
 
 jest.mock('../src/dota2ServerLog');
 

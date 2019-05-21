@@ -30,6 +30,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-preset": "^1.0.8",
     "fs-reverse": "0.0.3",
     "lodash": "^4.17.11",
     "request-promise": "^4.2.4"
