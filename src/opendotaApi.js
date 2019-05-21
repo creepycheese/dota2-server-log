@@ -1,6 +1,6 @@
 const rp = require('request-promise');
 const util = require('util');
-_ = require('lodash');
+const _ = require('lodash');
 
 class OpendotaApi {
   constructor(params) {

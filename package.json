@@ -1,6 +1,6 @@
 {
   "name": "dota2-server-log",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Dota2 server log parser app",
   "main": "index.js",
   "scripts": {

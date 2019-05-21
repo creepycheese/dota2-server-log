@@ -14,7 +14,7 @@ var rp = require('request-promise');
 
 var util = require('util');
 
-_ = require('lodash');
+var _ = require('lodash');
 
 var OpendotaApi =
 /*#__PURE__*/
