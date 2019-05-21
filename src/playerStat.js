@@ -8,7 +8,7 @@ class PlayerStat {
     this.lose = params.lose;
     this.heroes = params.heroes;
 
-    this.winrate = _.round(this.win / (this.lose + this.win), 4) * 100;
+    this.winrate = _.round((this.win / (this.lose + this.win)) * 100, 2);
     this.nickname = this.player.profile.personaname;
     this.recentMatches = params.recentMatches;
     this._didLose = p => !this._didWin(p);
@@ -67,7 +67,7 @@ class PlayerStat {
 
     return _.map(top, hero => {
       _.set(hero, 'hero_id', parseInt(hero.hero_id));
-      return _.set(hero, 'win_rate', _.round(hero.win / hero.games, 2) * 100);
+      return _.set(hero, 'win_rate', _.round((hero.win / hero.games) * 100));
     });
   }
 
