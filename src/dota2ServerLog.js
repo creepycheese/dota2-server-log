@@ -19,12 +19,12 @@ class Dota2ServerLog {
   async lastMatchSteamIds(filePath) {
     const fileStream = fs(filePath);
 
-    const rl = readline.createInterface({
+    const rlInterface = readline.createInterface({
       input: fileStream,
       crlfDelay: Infinity,
     });
 
-    for await (const line of rl) {
+    for await (const line of rlInterface) {
       var entry = this.parseLogEntry(line);
       if (entry && this._isValidGameMode(line)) return entry;
     }
