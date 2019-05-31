@@ -248,6 +248,22 @@ Logs:
 #### data()
 
 returns data about player with given tags.
-Tags to be returned:
 
+`topHeroes`
+Returns most successful heroes in recent matches for given playerId
+
+`winrate`
+Returns for recent matches
+
+`nickname`
+steam nickname
+
+`opendotaUrl`
+opendota profile page link
+
+`tags`
+Tags to be returned:
 `Rusty` - have played less than 3 matchmaking games for the period of more than 2 weeks
+`Tinker OTP` - played more than 80% of recent games as Tinker. E.g. Tinker is optional: may be other hero.
+`Losestreak` - has losestreak of 3 or more games
+`Winstreak`  - has winstreak of 3 or more games
