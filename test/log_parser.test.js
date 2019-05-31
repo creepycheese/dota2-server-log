@@ -34,6 +34,28 @@ describe('parseLogEntry', () => {
   });
 });
 
+describe('slotIdFromLastMatch(logPath, steamId)', () => {
+  let filePath = './test/server_log.txt';
+  let targetSteamIdRadiant = 174830156;
+  let targetSteamIdDire = 166168942;
+
+  it('returns slotId for given steamId and logPath', async () => {
+    expect.assertions(2);
+
+    var result = await parser.slotIdFromLastMatch(
+      filePath,
+      targetSteamIdRadiant,
+    );
+    var direResult = await parser.slotIdFromLastMatch(
+      filePath,
+      targetSteamIdDire,
+    );
+
+    expect(result).toEqual(0);
+    expect(direResult).toEqual(132);
+  });
+});
+
 describe('lastMatchSteamIds', () => {
   describe('given filePath', () => {
     let filePath = './test/server_log.txt';
@@ -48,7 +70,7 @@ describe('lastMatchSteamIds', () => {
       302693500,
       910673288,
       166168942,
-      166168942
+      166168942,
     ];
 
     it('returns ids from last match', async () => {

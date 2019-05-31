@@ -1,5 +1,6 @@
 const fs = require('fs-reverse');
 const readline = require('readline');
+const slots = [0, 1, 2, 3, 4, 128, 129, 130, 131, 132];
 
 class Dota2ServerLog {
   constructor() {
@@ -14,6 +15,13 @@ class Dota2ServerLog {
     }
 
     return ids.length > 0 ? ids : null;
+  }
+
+  async slotIdFromLastMatch(filePath, steamId) {
+    var ids = await this.lastMatchSteamIds(filePath);
+    var indexInLog = ids.indexOf(steamId);
+
+    return slots[indexInLog];
   }
 
   async lastMatchSteamIds(filePath) {

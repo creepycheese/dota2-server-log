@@ -12,10 +12,22 @@ Parses `server_log.txt` in dota folder and retrieves info about players.
 ## Usage
 
 If you only want to retrieve parsed log data
+
 ```javascript
 const Dota2ServerLog = require('dota2-server-log').Dota2ServerLog;
 const logParser = new Dota2ServerLog();
+
+// steamIds from log
+(async () => {
+  console.log(await logParser.lastMatchSteamIds(pathToLog));
+})();
+
+//get slot Id for given steamId
+(async () => {
+  console.log(await logParser.slotIdFromLastMatch(pathToLog, 23241251521));
+})();
 ```
+
 ### Opendota API
 
 ```javascript
@@ -52,6 +64,7 @@ var api = require('dota2-server-log').OpendotaApi;
 ```
 
 ### FetchPlayerStat(playerId, params)
+
 Fetches info about player with given `player_id`
 
 `player_id` - id of player to fetch stat.
@@ -98,6 +111,7 @@ var FetchPlayerStat = require('./index.js').FetchPlayerStat;
 ```
 
 ### ServerLogPlayerData(logPath)
+
 Fetches data for all playerId entries in latest server log file which is located in `logPath`
 
 ```js
@@ -107,23 +121,24 @@ var stats;
 var allStat;
 var successPlayers;
 var failedPlayers;
-var logPath = './test/server_log.txt'
-
-(async() => {
+var logPath = './test/server_log.txt'(async () => {
   allStat = await ServerLogPlayerData(logPath);
-  stats = await Promise.all(allStat).then(r => r).catch(e => e);
+  stats = await Promise.all(allStat)
+    .then(r => r)
+    .catch(e => e);
   // Filter players in case some requests failed to retry later
-  successPlayers = _.filter(stats, (s) => !_.hasIn(s, 'error'))
-  failedPlayers = _.difference(stats, successPlayers)
+  successPlayers = _.filter(stats, s => !_.hasIn(s, 'error'));
+  failedPlayers = _.difference(stats, successPlayers);
 
   console.log(_.map(successPlayers, s => s.data()));
 
-  console.log("FAILED: ");
+  console.log('FAILED: ');
   console.log(failedPlayers);
-})
+});
 ```
 
-Outputs: 
+Outputs:
+
 ```
 18 May 12:16:30 - Fetching data for playerIds: [174830156,445444750,27372708,126702952,349919626,412448050,416755244,302693500,910673288,166168942,166168942]
 18 May 12:16:30 - Fetching statistics for playerId: 174830156
@@ -141,69 +156,91 @@ Outputs:
 18 May 12:16:32 - Success request: https://api.opendota.com/api/players/302693500/wl?date=14
 ```
 
-
 Logs:
+
 ```js
-[ { playerId: 174830156,
-    topHeroes: [ [Object], [Object], [Object] ],
+[
+  {
+    playerId: 174830156,
+    topHeroes: [[Object], [Object], [Object]],
     winrate: 33.33,
     nickname: 'its over 9000 !',
     tags: [],
-    opendotaUrl: 'https://www.opendota.com/players/174830156' },
-  { playerId: 445444750,
-    topHeroes: [ [Object], [Object], [Object] ],
+    opendotaUrl: 'https://www.opendota.com/players/174830156',
+  },
+  {
+    playerId: 445444750,
+    topHeroes: [[Object], [Object], [Object]],
     winrate: 100,
     nickname: 'Saw',
-    tags: [ 'Smurf', 'Losestreak', 'Rusty' ],
-    opendotaUrl: 'https://www.opendota.com/players/445444750' },
-  { playerId: 27372708,
-    topHeroes: [ [Object], [Object], [Object] ],
+    tags: ['Smurf', 'Losestreak', 'Rusty'],
+    opendotaUrl: 'https://www.opendota.com/players/445444750',
+  },
+  {
+    playerId: 27372708,
+    topHeroes: [[Object], [Object], [Object]],
     winrate: 66.67,
     nickname: 'whatsgoinon',
     tags: [],
-    opendotaUrl: 'https://www.opendota.com/players/27372708' },
-  { playerId: 126702952,
-    topHeroes: [ [Object], [Object], [Object] ],
+    opendotaUrl: 'https://www.opendota.com/players/27372708',
+  },
+  {
+    playerId: 126702952,
+    topHeroes: [[Object], [Object], [Object]],
     winrate: 53.849999999999994,
     nickname: 'DARIDO',
     tags: [],
-    opendotaUrl: 'https://www.opendota.com/players/126702952' },
-  { playerId: 349919626,
-    topHeroes: [ [Object], [Object], [Object] ],
+    opendotaUrl: 'https://www.opendota.com/players/126702952',
+  },
+  {
+    playerId: 349919626,
+    topHeroes: [[Object], [Object], [Object]],
     winrate: 100,
     nickname: '12 Madness',
-    tags: [ 'Smurf', 'Losestreak', 'Rusty' ],
-    opendotaUrl: 'https://www.opendota.com/players/349919626' },
-  { playerId: 412448050,
-    topHeroes: [ [Object], [Object], [Object] ],
+    tags: ['Smurf', 'Losestreak', 'Rusty'],
+    opendotaUrl: 'https://www.opendota.com/players/349919626',
+  },
+  {
+    playerId: 412448050,
+    topHeroes: [[Object], [Object], [Object]],
     winrate: 100,
     nickname: "↓you'r rank down",
-    tags: [ 'Smurf', 'Rusty' ],
-    opendotaUrl: 'https://www.opendota.com/players/412448050' },
-  { playerId: 302693500,
-    topHeroes: [ [Object], [Object], [Object] ],
+    tags: ['Smurf', 'Rusty'],
+    opendotaUrl: 'https://www.opendota.com/players/412448050',
+  },
+  {
+    playerId: 302693500,
+    topHeroes: [[Object], [Object], [Object]],
     winrate: 185.71,
     nickname: 'Alice (not coming back soon)',
-    tags: [ 'HeroOTP', 'Smurf', 'Losestreak' ],
-    opendotaUrl: 'https://www.opendota.com/players/302693500' },
-  { playerId: 910673288,
-    topHeroes: [ [Object], [Object], [Object] ],
+    tags: ['HeroOTP', 'Smurf', 'Losestreak'],
+    opendotaUrl: 'https://www.opendota.com/players/302693500',
+  },
+  {
+    playerId: 910673288,
+    topHeroes: [[Object], [Object], [Object]],
     winrate: 66.67,
     nickname: 'я сдыхал , меня лутали',
     tags: [],
-    opendotaUrl: 'https://www.opendota.com/players/910673288' },
-  { playerId: 166168942,
-    topHeroes: [ [Object], [Object], [Object] ],
+    opendotaUrl: 'https://www.opendota.com/players/910673288',
+  },
+  {
+    playerId: 166168942,
+    topHeroes: [[Object], [Object], [Object]],
     winrate: 53.849999999999994,
     nickname: '.',
-    tags: [ 'Losestreak', 'Rusty' ],
-    opendotaUrl: 'https://www.opendota.com/players/166168942' },
-  { playerId: 166168942,
-    topHeroes: [ [Object], [Object], [Object] ],
+    tags: ['Losestreak', 'Rusty'],
+    opendotaUrl: 'https://www.opendota.com/players/166168942',
+  },
+  {
+    playerId: 166168942,
+    topHeroes: [[Object], [Object], [Object]],
     winrate: 53.849999999999994,
     nickname: '.',
-    tags: [ 'Losestreak', 'Rusty' ],
-    opendotaUrl: 'https://www.opendota.com/players/166168942' } ]
+    tags: ['Losestreak', 'Rusty'],
+    opendotaUrl: 'https://www.opendota.com/players/166168942',
+  },
+];
 ```
 
 ### PlayerStat
