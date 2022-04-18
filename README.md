@@ -7,7 +7,7 @@ Parses `server_log.txt` in dota folder and retrieves info about players.
 
 ## Install
 
-`npm install --save dota-2-server-log`
+`npm install --save dota2-server-log`
 
 ## Usage
 
